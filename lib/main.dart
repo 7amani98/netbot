@@ -16,6 +16,7 @@ class NetBotApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'NetBot',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFF6B4CAF),
         scaffoldBackgroundColor: const Color(0xFF1A1A2E),

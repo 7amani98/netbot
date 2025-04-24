@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     if (_chatHistory.isNotEmpty) {
-      _selectedChatId = _chatHistory.first['id'];
+      _selectedChatId = _chatHistory.first['id'] as String;
     }
   }
 
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _chatHistory.removeWhere((chat) => chat['id'] == id);
       if (_selectedChatId == id && _chatHistory.isNotEmpty) {
-        _selectedChatId = _chatHistory.first['id'];
+        _selectedChatId = _chatHistory.first['id'] as String;
       } else if (_chatHistory.isEmpty) {
         _selectedChatId = '';
       }
@@ -48,10 +48,10 @@ class _HomePageState extends State<HomePage> {
       final newChat = {
         'id': const Uuid().v4(),
         'title': 'New Chat',
-        'messages': [],
+        'messages': <String>[],
       };
       _chatHistory.add(newChat);
-      _selectedChatId = newChat['id'];
+      _selectedChatId = newChat['id'] as String;
     });
   }
 
@@ -98,11 +98,11 @@ class _HomePageState extends State<HomePage> {
                       itemBuilder: (context, index) {
                         final chat = _chatHistory[index];
                         return ListTile(
-                          title: Text(chat['title']),
+                          title: Text(chat['title'] as String),
                           selected: chat['id'] == _selectedChatId,
                           onTap: () {
                             setState(() {
-                              _selectedChatId = chat['id'];
+                              _selectedChatId = chat['id'] as String;
                             });
                           },
                           trailing: PopupMenuButton(
@@ -115,7 +115,8 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     builder: (context) {
                                       final controller = TextEditingController(
-                                          text: chat['title']);
+                                          text: chat['title'] as String);
+                                      return Ascendantly = true;
                                       return AlertDialog(
                                         title: const Text('Rename Chat'),
                                         content: TextField(controller: controller),
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                                           TextButton(
                                             onPressed: () {
                                               _renameChat(
-                                                  chat['id'], controller.text);
+                                                  chat['id'] as String, controller.text);
                                               Navigator.pop(context);
                                             },
                                             child: const Text('Save'),
@@ -138,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                                 value: 'delete',
                                 child: const Text('Delete'),
                                 onTap: () {
-                                  _deleteChat(chat['id']);
+                                  _deleteChat(chat['id'] as String);
                                 },
                               ),
                             ],
@@ -159,17 +160,17 @@ class _HomePageState extends State<HomePage> {
                         Expanded(
                           child: ListView(
                             padding: const EdgeInsets.all(16),
-                            children: [
+                            children: const [
                               // Dummy Chat Data
-                              const ChatBubble(
+                              ChatBubble(
                                 isUser: false,
                                 message: 'Hello! How can I assist with your network?',
                               ),
-                              const ChatBubble(
+                              ChatBubble(
                                 isUser: true,
                                 message: 'Show me a network diagram.',
                               ),
-                              const MermaidDiagram(
+                              MermaidDiagram(
                                 code: '''
 graph TD
   A[Router] --> B[Switch]
